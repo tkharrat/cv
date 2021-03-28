@@ -1,0 +1,407 @@
+% Created 2020-02-14 Fri 14:15
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[x11names]{xcolor}
+\hypersetup{linktoc = all, colorlinks = true, urlcolor = olive, citecolor = blue, linkcolor = black}
+\author{Tarak Kharrat}
+\date{\today}
+\title{Detailed Work Experience}
+\hypersetup{
+ pdfauthor={Tarak Kharrat},
+ pdftitle={Detailed Work Experience},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.3.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{abstract}
+In this document, I give a detailed overview of my work experience. It is
+meant to complement \href{https://liverpool.academia.edu/TarakKharrat/CurriculumVitae}{my short resume}, giving the reader more information
+about the type of projects I have been involved in, and the
+tools I have built during my career.
+\end{abstract}
+
+\tableofcontents \clearpage
+
+\section{Overview}
+\label{sec:orgb7cee5c}
+I am a data scientist with extensive experience of building \textbf{\textbf{predictive
+models}} in competitive commercial environments. I have an undergraduate degree
+in pure mathematics, a masters degree in quantitative finance and a PhD in
+statistics. Over the past 10 years, I have been working with data on a daily
+basis and developed a set of tools that allows me to help any business
+interested in making predictions.
+
+\section{Academia}
+\label{sec:orgb27c479}
+After finishing my PhD in October 2015, I have been working as a (part-time)
+research fellow contributing to research papers in the field of computational
+statistics and sports analytics.
+
+Although I like developing new methodologies in my research, I am keen to
+demonstrate new methodologies in a practical setting. Therefore, my papers
+either solve a real life problem or develop some new methodology to solve an
+existing problem. For example, the new family of counting processes described in
+\cite{baker2018event} and the associated software \cite{kharrat2019flexible} were
+motivated by the restrictive assumptions of the Poisson model systematically
+applied in the football forecasting literature. Thus, in
+\cite{boshnakov2017bivariate} we argued that the application of the new
+methodology (the renewal counting processes) gave a better prediction than the
+benchmark (the Poisson model and its derivatives).
+
+In my academic journey, I have had the opportunity to collaborate with world class
+researchers from the United Kingdom and Canada and published papers in top
+journals. My full list of publication can be found below: 
+\begin{itemize}
+\item \textbf{Applied mathematics}: \cite{heil2012quasi}
+\item \textbf{Computational statistics}: \cite{baker2018event,kharrat2019flexible}
+\item \textbf{Sports analytics}: \cite{boshnakov2017bivariate,kharrat2019plus} and
+\cite{kharrat20deep}
+\end{itemize}
+\section{Industry}
+\label{sec:orgd889c70}
+\subsection{Trading (finance)}
+\label{sec:org54d4e88}
+I started on the trading floor in April 2011 as an intern within the
+proprietary trading department of \emph{Societe Generale} Paris before moving to New
+York in July 2011 as a full time employee.
+
+The main focus of my job was to use quantitative tools and data to help
+traders find alphas and design/refine semi or fully automated trading
+strategies. I collaborated closely with the high frequency and basket trading
+desks and worked mainly on the US Equity and Future markets (S\&P500, Russell
+1000 and to some extent Nasdaq).
+
+The standard workflow usually begins with ideas/observations coming from the
+traders. I worked together with them on refining these ideas, transforming
+them into hypotheses to be tested using data. 
+
+The choice of the training data is vital for the success of such tasks and
+hence I used the traders expertise to carefully define the data samples
+before starting any modelling. In particular, special attention was given to
+check that the data generation process was likely to be similar (between our
+training data points and the future trading points). In other words, we had to
+carefully pick up (enough) data points from the past where market conditions
+were likely to be similar to current (and near future) market conditions.
+
+Although details on the strategies cannot be fully disclosed here, I was
+mainly working on two major subjects: stocks correlation within an index and
+stock likelihood to join or leave an index (index re-balancing). I also
+worked occasionally on some ideas related to special events (mainly M\&A)
+where we tried to estimate the probability of a deal to move from \emph{announced}
+to \emph{agreed} or from \emph{completed} to \emph{terminated}.
+\subsection{Betting (football)}
+\label{sec:orgfebe299}
+The betting market offers a solid benchmark for anyone trying to forecast the
+outcome of a football match. Although one of my papers \cite{boshnakov2017bivariate}
+discussed this problem, I really started to properly look at this subject
+when I started my collaboration with Kickdex in late 2015. The mission was
+complex but clearly defined: building (from scratch) an accurate predictive
+model able to generate profit when used in an automated (algorithmic) betting
+strategy on the Asian market.
+
+It took us slightly less than 4 years to reach that goal but it was a very
+enriching experience where I learned a lot about how predictive models work,
+how to improve them, interpret their errors and communicate research findings
+to non-technical domain experts. I also had the opportunity to work alongside
+very talented quants and IT experts who taught me a lot on daily basis.
+
+In the rest of this section, I describe in more detail the steps we followed
+to build our cutting-edge advanced model:
+\subsubsection{Identify the appropriate data sources}
+\label{sec:org3c73ebb}
+The main feed provider used by Kickdex is \href{https://www.optasports.com/}{Opta}. The choice of the provider
+was a business decision made at the investors' level and hence changing it
+would require building a strong case.
+
+The first decision we subsequently had to make was how to store the data.
+\texttt{MongoDB}, a \texttt{non-SQL} type database, was selected. The dataset was very
+unstructured and after consulting with the IT team the choice of \texttt{mongoDB}
+was straightforward.
+
+The second step was to define a set of tests to apply to raw feed when
+received from the provider to ensure that every (game) feed entering the
+database is trustworthy. These tests check various properties of the data
+such as validity (11 players on the pitch, every player on the team sheet
+has at least one event associated to him,\ldots{} ), consistency (same id used to
+identify the same player,\ldots{}) and absence of outliers (no games with a very
+high number of specific events such as shots for example). We were able
+using this process to flag corrupted games and report them to the provider
+asking for corrections when possible. At the end of this step, we were
+confident that every data point (a document in the \texttt{mongoDB} terminology)
+could be used for modelling.
+
+We also identified a number of websites containing complementary
+information. The websites were found based on expert advise, from academic
+papers or from specialised forums. Once selected, the feed was extracted by
+web-scraping, cleaned, validated (using the same logic described above) and
+then mapped to the Opta feed and stored in our database.
+
+\subsubsection{Defining the right metric to evaluate a set of probabilities}
+\label{sec:org4d4c345}
+With a valid dataset in hand, the next step was to define a method to
+evaluate the \emph{quality} of a set of predictions i.e. probabilities produced
+for unseen games. The method had to be adapted to our application (the
+property of our betting strategy), and should have attractive mathematical
+properties (for example being a proper scoring rule). After studying what
+has been suggested in the literature, we found out that the ideas discussed
+in \cite{johnstone11_tailor_scorin_rules_probab} were the more relevant for
+our objective and adapted them to build a \emph{Kickdex proper scoring rule}.
+\subsubsection{Feature engineering}
+\label{sec:orgb175000}
+Features are the fuel of predictive models and hence feeding good features
+into a model has a dramatic impact on its performance. Designing (good)
+features is more of an art than a scientific process and relies heavily on
+domain knowledge and the available data. We collected ideas (inspiration)
+from academic papers, specialised forums and discussion with professional
+punters to create our feature set. We carefully checked that our features
+did not include future information (also known as \emph{look-ahead bias}) and
+tried carefully to avoid any systematic bias. We also tried to diversify our
+feature set as much as possible to capture the complexity of a football
+game. It is worth noting that a feature set is usually dynamic: new features
+get introduced regularly whilst others are rejected as the result of new
+research and development.
+
+\subsubsection{Feature selection}
+\label{sec:org444d6b9}
+It is often the case when working with features to end up having a large
+pool of candidates to test. This usually happens because you may have
+designed several small variations of the same idea or because you wanted to
+capture different aspect of the game. Although some models can select
+features at the fitting/training step, others can fail to converge when
+presented with highly correlated features (linear models for example). Even
+if the model used is robust to highly correlated features, it is usually a
+bad idea to pass a large feature set as it will increase dramatically the
+time needed for training. Therefore, using a filter to keep only the
+relevant information is a crucial task when building a predictive model.
+
+At Kickdex, we conducted extensive research on the subject and tested
+different approaches based on clustering, feature mirroring, \ldots{}. We ended
+up building a propriety feature selection process that proved to be useful
+and allowed us to reduce the size of our set from several thousand features
+initially to less than 50.
+\subsubsection{Feeding the right features to the right learners}
+\label{sec:org8adf2c8}
+It is important to know how the feature values are going to be digested by a
+specific learner (i.e model) and it is sometimes useful to transform a
+feature before passing it. For example, models that estimates parameters by
+numerically minimising a loss function may benefit from features being on
+the same scale (neural networks are one family of such models).
+
+At Kickdex, we spent time trying different transformations and how they
+performed when associated with specific learners. We built good
+understanding on what combinations work best and leveraged that when
+building our final model.
+
+\subsubsection{Combining the successful learners}
+\label{sec:org75e5aa6}
+After trying several modelling approaches, we came to the conclusion that no
+single model is likely to outperform all the others for the different type
+of markets we wanted to predict. Therefore, we decided to combine different
+type of learners using different sets of features to build an ensemble. The
+hope was that the sub-models would commit different type of errors (ideally
+uncorrelated) and hence combining them will result in better predictions
+(than the best sub model in the ensemble).
+
+We designed a framework to train/test an ensemble of arbitrarily selected
+base learners on generic classification tasks using ideas presented in
+\cite{caruana04_ensem}. We leveraged cloud computing power to test the
+performance of a candidate model on real data. After some code optimisation
+and careful redesign, we managed to reduce the training time from a few
+weeks to less than 10 hours for the current version used in production.
+\subsubsection{Explaining the predictions}
+\label{sec:orgfaf0f34}
+Although our ensemble can be seen as a type of \emph{black box} model, we
+attached specific care to its interpretability and tried as much as possible
+to explain its prediction. Using tools such as the \texttt{DALEX} package
+\cite{dalex2018}, we tried to understand how the predictions changed with
+changes in feature values and for given prediction scenarios (usually when
+the model is far from the benchmark i.e the betting market) which features
+were responsible for the estimated probability. This approach allowed us
+first to build confidence on our predictions and second to get some useful
+feedback to improve the model by designing new features.
+
+\subsubsection{Back-testing the betting strategy}
+\label{sec:org0b929a5}
+Back-testing a betting strategy is a very complicated task for several reasons: 
+\begin{itemize}
+\item It is hard to get reliable historical prices with an accurate time-stamp.
+\item It is hard to model market impact or whether a bet will be accepted or not.
+\item Liquidity information is not available i.e. you don't know how much is
+available to bet on at the advertised price.
+\item The market is rapidly changing: new players coming in, others disappearing
+\ldots{}
+\end{itemize}
+
+Therefore, we decided at Kickdex to only use the market prices as a
+benchmark and focused on improving our probability (in terms of our tailored
+in-house probability score) as much as possible. Nevertheless, we still
+simulate betting strategies on unseen data (usually we leave the most recent couple of
+seasons for validation) just to get an order of magnitude of our expected
+return on investment and the Sharpe ratio. However, we never used these metrics
+as targets to optimise in our modelling process.
+\subsubsection{Deploying the model in production}
+\label{sec:org8808515}
+All our models were deployed on Amazon Web Services (AWS) and we spent a lot
+of energy working with the IT team to make transition from prototyping to
+testing and from testing to production as smooth as possible. We leveraged
+tools such as \texttt{conda} and \texttt{docker} and made sure all the prototyping work was
+made already in a copy of the production environment to avoid dealing with
+version clashes or any other dependency issues.
+\subsubsection{Monitoring trading performance}
+\label{sec:orgfe96b79}
+We developed automated tools to monitor the trading performance of our
+production model. In particular, we tried to check if the live performance
+was in line with the historical performance and to detect any change point
+in the feature distribution, the probability score distribution \ldots{}. These
+tools allowed us to act quickly when an issue was detected and hence to
+avoid unexpected losses that could dramatically damage the return of our
+strategy.
+\subsection{Consultancy}
+\label{sec:org81fef6a}
+Driven by the desire to apply my research to real life industrial problems, I
+have always been keen to collaborate with the industry during my academic
+career. Below are some examples of collaborations I recently did:
+
+\begin{itemize}
+\item Between 2008 and 2010, I worked with \href{https://www.total.com/en/group/identity}{TOTAL} to define systematic tests to
+one of their software (STAGE) responsible for the optimisation of the
+number of ships required to ensure a smooth transportation of LNG between
+loading and unloading terminals across the world. I helped discovering some
+bugs and suggested some optimisation to version 6.1.10.
+\item My research paper \cite{heil2012quasi} found a real life application at
+\href{https://www.thalesgroup.com/en}{THALES}.
+\item In 2013, together with two colleagues from the maths department at the
+University of Manchester, we helped \href{https://www.bet365.com/\#/HO/}{bet365} fix some bias in their pre-match
+pricing model for lower tier football leagues in Europe.
+\item I helped the UK atomic weapons establishment in 2014 to solve non-Gaussian
+dynamic regression problems and implemented an R package for them to apply
+it on their (confidential) data.
+\item An optimised version of the model described in \cite{boshnakov2017bivariate}
+was adapted to build some learners used by the ensemble model we deployed
+in production at Kickdex since 2015.
+\item I co-designed the sports analytics Machine (SAM) used by the BBC from 2015
+until 2018 to analyse football matches, rate players and estimate the
+likely impact of new signings in football.
+\item A lawyer house used some of the football player ratings system I created
+\cite{kharrat20deep,kharrat2019plus} in 2018 to build a case against a
+football club on the behalf of a young professional player claiming some
+compensation for a long term injury suffered during a game against that
+club.
+\item I helped L'Oreal in 2019 to improve their customer suggestion tool by
+reviewing their modelling process and optimising its predictive power which
+substantially increased their conversion rate (visit to purchase) by 13\%.
+\end{itemize}
+\section{Toolbox}
+\label{sec:org6e35dc1}
+\subsection{Machine learning (ML) and Artificial Intelligence (AI)}
+\label{sec:org18a0572}
+\begin{itemize}
+\item I have a good understanding of the main ML models for supervised
+(classification, regression) and unsupervised (clustering) learning. I have
+experience with the most popular algorithms and I have been using them
+regularly over the past 6 years.
+\item Solid experience in deep learning, its main framework \texttt{tensorflow/keras}
+and \texttt{pytorch/fastai}, and its applications (computer vision, natural
+language processing, tabular data \ldots{}).
+\item Good knowledge of (deep) reinforcement learning. See also
+\cite{kharrat20deep}.
+\end{itemize}
+\subsection{Programming languages}
+\label{sec:orgf1ce182}
+\subsubsection{R}
+\label{sec:org2b3e36f}
+R has become my go to programming language whenever I want to code
+something. I have been using it almost daily over the past 10 years and I
+managed to build a powerful toolbox that would allow me to do most 
+data-related tasks. I am the author or co-author of more than 50 packages
+(just a couple of them available on the public domain).
+
+Some of the tasks I did in R are briefly described below:
+\begin{itemize}
+\item Packages implementing some predictive models based on the renewal counting
+process or adaptation of some survival models.
+\item I created \texttt{RESTful} API using the \texttt{plumber} package to expose some of my
+models.
+\item I created more than six scrapers (all running in production) using the
+\texttt{rvest}, \texttt{httr} or \texttt{Rselenium} ecosystem.
+\item I extended the \texttt{mongoDB} R driver (\texttt{mongolite}) in my \texttt{mongoTools} package.
+\item I am very familiar with the machine learning ecosystem in R namely \texttt{mlr}
+(and its successor \texttt{mlr3}) and \texttt{caret} (and its successor \texttt{tidymodels}).
+\item Working experience with the time series tools (\texttt{forecast}, \texttt{KFAS}, ..)
+\item Solid experience bridging R with other languages such as python
+(\texttt{reticulate}, \texttt{rpy2}) and C++ (\texttt{Rcpp})
+\item Good working experience with deep learning frameworks such as \texttt{tensorflow}
+or \texttt{keras} in R (although for deep learning I prefer using python).
+\item Some experience with the main visualisation tools such \texttt{ggplot2} and
+\texttt{shiny}.
+\end{itemize}
+\subsubsection{python}
+\label{sec:org8ec856f}
+Most of our code at Kickdex is written in python and hence I contributed to
+several internal modules. I am not as advanced in Python as I am in R but I
+have developed:
+\begin{itemize}
+\item Good understanding of core python library and fundamental concepts.
+\item Some working experience with data science tools such as \texttt{numpy}, \texttt{pandas}
+and \texttt{scikit-learn}.
+\item Solid experience with deep learning frameworks such as \texttt{tensorflow/keras}
+and \texttt{pytorch/fastai}.
+\item I am able to write production ready code but maybe not as fast as I would
+be in R.
+\end{itemize}
+\subsubsection{C++}
+\label{sec:org3cc3ba3}
+The first programming language I learned is C/C++. I was using it regularly
+between 2008 and 2011 but slowly switched to scripting languages over the
+past five years. Some of the projects I did in C++ are:
+\begin{itemize}
+\item Most of the code I wrote when working for \emph{Societe Generale} was in C++.
+\item I implemented the Helmholtz module in \href{http://oomph-lib.maths.man.ac.uk/doc/html/index.html}{oomph-lib} \cite{heil2006oomph}.
+\item My R package \href{https://cran.r-project.org/web/packages/Countr/index.html}{Countr} \cite{kharrat2019flexible} is mostly written in C++ and
+then bridged to R using \texttt{Rcpp} \cite{Eddelbuettel2017rcpp}.
+\end{itemize}
+\subsubsection{julia}
+\label{sec:org73383cd}
+I am a big fan and early adopter of \href{https://julialang.org/}{julia} and I started using it in
+prototyping work. However, due to its short history, I didn't use it in
+production yet.
+\subsection{Database technology}
+\label{sec:org45d83cd}
+I have more than 5 years experience with \texttt{mongoDB} in production. However, I
+have only limited experience with other type of database technology such as
+\texttt{SQL} or \texttt{Casandra} \ldots{}
+\subsection{Operating System}
+\label{sec:org814a58d}
+I have very good working knowledge (more than 8 years) with Unix type
+operating systems (mainly Ubuntu and \texttt{redhat} Scientific Linux).
+\subsection{Cloud computing and model deployment}
+\label{sec:org8a1fcbe}
+\begin{itemize}
+\item I have been writing production ready code over the past 4 years mainly in R
+and Python.
+\item Good knowledge of version control tools (\texttt{git}).
+\item Good experience with dependency management system such as \texttt{conda} and \texttt{docker}.
+\item Some experience training complex models in the cloud (mainly Google cloud
+and to some extent AWS) or on internal clusters.
+\end{itemize}
+
+\bibliographystyle{apalike}
+\bibliography{../../../Software/spacemacs/Bibliography/references}
+\end{document}

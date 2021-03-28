@@ -1,0 +1,287 @@
+% Created 2018-04-23 Mon 10:28
+% Intended LaTeX compiler: pdflatex
+\documentclass[a4paper,twoside,11pt]{article}
+                              \usepackage[T1]{fontenc}
+\usepackage{libertine}
+\renewcommand*\oldstylenums[1]{{\fontfamily{fxlj}\selectfont #1}}
+\usepackage{lmodern}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{rotating}
+\usepackage{setspace,amsmath,amsfonts,amssymb,bm}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{Red}{rgb}{0.5,0,0}
+\definecolor{NavyBlue}{rgb}{0.1,0.1,0.45}
+\definecolor{MidnightBlue}{rgb}{0.1,0.1,0.65}
+\usepackage[pdftex,hyperfootnotes=true,plainpages=false,pdfpagelabels,hypertexnames=true,naturalnames,pdfproducer={Latex},pdfcreator={pdflatex},bookmarks,bookmarksnumbered,colorlinks,linkcolor=MidnightBlue,citecolor=NavyBlue,filecolor=black,urlcolor=Red,breaklinks=true]{hyperref}
+\usepackage{authblk}
+\usepackage{xspace,helvet}
+\usepackage{moreverb}
+\usepackage{url, booktabs}
+\usepackage{cleveref}
+\usepackage[pdftex]{lscape}
+\usepackage{fullpage}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{pifont}
+\usepackage{setspace}
+\usepackage{threeparttable}
+\usepackage{tabulary}
+\usepackage[toc,page]{appendix}
+\usepackage{pbox}
+\usepackage[font=small]{caption}
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\E}{\mathsf{E}}
+\newcommand{\VAR}{\mathsf{VAR}}
+\newcommand{\COV}{\mathsf{COV}}
+\newcommand{\Prob}{\mathsf{P}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\dee}{\,\mbox{d}}
+\newcommand{\naive}{na\"{\i}ve }
+\newcommand{\eg}{e.g.\xspace}
+\newcommand{\ie}{i.e.\xspace}
+\newcommand{\pdf}{pdf.\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+\newcommand{\PhD}{Ph.D.\xspace}
+\newcommand{\MSc}{M.Sc.\xspace}
+\newcommand{\BA}{B.A.\xspace}
+\newcommand{\R}{\texttt{R}\xspace}
+\usepackage{paralist}
+\let\itemize\compactitem
+\let\description\compactdesc
+\let\enumerate\compactenum
+\let\enumerate\inparaenum
+\renewenvironment{enumerate}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+\renewenvironment{enumerate}{\begin{inparaenum}[(a)]}{\end{inparaenum}}
+\usepackage[round]{natbib}
+\author[1, 2]{Tarak Kharrat}
+\affil[1]{University of Liverpool, London Campus, UK.}
+\affil[2]{Kickdex Limited, Lodon, UK.}
+\newcommand{\countr}{\texttt{Countr}\xspace}
+\date{\today}
+\title{my Technical Toolbox\\\medskip
+\large An Overview}
+\hypersetup{
+ pdfauthor={tarak},
+ pdftitle={my Technical Toolbox},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.0.7)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{abstract}
+The main motivation of this document is to give the reader an overview of my
+technical toolbox and the projects I have been involved in. It is meant to
+complement my (short) resume.
+\end{abstract}
+
+\section{Research Activity}
+\label{sec:org0d483c0}
+I am currently a (part-time) research fellow at the University of Liverpool
+where I undertake research projects that fall under the umbrella of
+\emph{'Computational Statistics'}. In this context, together with colleagues, we
+developed methods and software to solve problems in:
+\begin{itemize}
+\item \textbf{Counting Processes:} We developed a new family of counting processes that
+generalise the standard Poisson and negative binomial models. These models
+have the nice property to allow fitting over as well as under-dispersed
+data. The theoretical properties are discussed in \citet{baker2017event}. An
+\texttt{R} package \citet{Rcore} has been published on \href{https://CRAN.R-project.org/package=Countr}{CRAN} and described in a
+dedicated paper \citep{kharrat2018jss}.
+
+\item \textbf{Time Series:} We developed new methodologies to fit non-Gaussian non-linear
+state space models. The methods are implemented in the \texttt{R} package \texttt{GKF} (for
+internal use only).
+
+\item \textbf{Statistical Distributions:} We created new estimation techniques for the 4
+parameters of Stable law distributions. These methods converge faster and
+still enjoy the normal asymptotic properties. This work is discussed in
+\cite{kharrat2015jss}.
+\item \textbf{Survival Analysis:} I have been involved in some research with time to event
+data. In particular, I have a large experience with competing risks models and
+their multi-state generalisation.
+\end{itemize}
+
+\section{Sports Analytics}
+\label{sec:orgfb52d45}
+As co-head of R\&D at Kickdex Limited, a start-up specialised in predictive
+modelling in football, I developed many tools and metrics to analyse, in a
+purely quantitative way, the game of football. Also the applied side of my
+research is dedicated to football. In fact, some chapters in my PhD thesis 
+\citep{TarakPhd} discuss some models suggested mainly to forecast the match
+score grid. In the rest of this section, I detail some of the projects I worked
+on in this area:
+
+\begin{itemize}
+\item I created a unique database (from scratch) by web-scrapping the
+internet. These database contains event-by-event data (similar to
+opta F24), video game players information (EA Sports FIFA and Konami PES),
+betting prices (both pre-match and in play for different markets) and
+historical injury record. The database is updated weekly and is stored on
+the \href{https://www.mongodb.com/cloud/atlas}{mongo-Atlas} cloud.
+
+\item My primary focus at Kickdex is on predictive models. We developed, together
+with a colleague, an industry leading forecasting model which is used by a
+multi-millions betting syndicate. Although technical details cannot be
+disclosed, I can say that we built families of basic models using standard
+machine learning classifiers (Random Forest, boosted trees, support vector
+machine, neural networks, k-nearest neighbours, naive Bayes, \ldots{}) and other
+models using more classic statistical techniques based on counting processes,
+copula and survival analysis (for example, you can see this paper
+\citep{boshnakov2017bivariate}). These basic models have been combined in an
+\emph{ensemble} which is know to perform better than any single model taken
+individually. We also leveraged techniques such as multi-task and transfer
+learning. Besides, some effort has been spent on feature engineering, feature
+selection, model performance testing \ldots{}
+
+\item I also did some work on players evaluation. In this context, I created several
+metrics under the \emph{REAL Analytics} (RA) label which is meant to help
+football clubs use sounds mathematics to answer relevant questions for the game
+of football:
+\begin{itemize}
+\item \emph{Plus-Minus Rating}: How important is the player for his team? The theory
+has been published in a paper \citep{kharrat2017plusminus}. In particular,
+we measure the player's importance in terms of goal differential (\texttt{PM}),
+expected goal differential (\texttt{xGPM}) and expected points differential (\texttt{xPPM}).
+\item \emph{valuing actions}: We developed an algorithm to compute the contribution of
+every action in football to the probability of scoring/conceding goals. This
+algorithm allow us to measure the importance of players' action and to
+derive two objective ratings: \emph{performance} rating to answer the question how
+did the player perform in a specific match? and \emph{overall} rating to answer
+the question how good is the player right now (in terms of football skills)?
+\item \emph{potential}: It is important to know how good a player will be in the future
+leveraging some modern time series forecasting techniques. We developed an
+algorithm to project the \emph{overall} rating in the future. Depending on the
+player's age and his recent performance, we can estimate how good he is
+likely to be.
+\item \emph{reliability}: The RA reliability index estimates how often a player is
+available to play. It takes into account information such as historical
+injury and red card records and gives an estimate of the probability of a
+player being available for selection of a given random match.
+\item \emph{players' likely impact}: Together with a colleague at Salford business
+school, we developed a set of algorithms labelled \emph{Sports Analytics Machine}
+(SAM). The BBC is a prime user of SAM and among other things, SAM is able to
+compute the impact of new signing in a team. In fact, including the new
+signing in the squad and simulating the league path allow us to objectively
+quantify the change of probability (with and without the player) of winning the
+league, finishing in champions league positions \ldots{} An example of application
+is given \href{https://www.bbc.co.uk/sport/football/37004327}{here}.
+\end{itemize}
+\end{itemize}
+All these ratings and tools have been exposed in a \href{https://realanalytics.org}{web-app} I maintain (data
+updated on regular basis). The different functionality are explained in this
+\href{https://www.dropbox.com/s/k6ui3ugywcbcgtj/REAL\%20Analytics\%20demo.mp4?dl=0}{introductory-video}.
+
+\begin{itemize}
+\item \textbf{Tracking-data}: we have been mandated by a company (name cannot be disclosed)
+to compare the quality of different tracking data (Prozone, inStat, TRACAB,
+STATS). This project allowed us to familiarise ourselves with these new
+generation of data and to prototype a new model to extend our \emph{valuing
+actions} model which used only event-by-event ball data. However, the
+confidentiality agreement and the small sample size didn't allow us to publish
+our findings.
+\end{itemize}
+
+\section{Algorithmic Trading}
+\label{sec:org108bc91}
+\begin{itemize}
+\item solid experience designing, back-testing and deploying trading strategies in
+the US equity and football betting markets.
+\item good experience working with high frequency (tick-by-tick, seconds, minutes
+\ldots{}) price and volume data.
+\item ability to discuss, explain and present trading results to (non technical)
+stake holders audience.
+\end{itemize}
+
+\section{Consultancy}
+\label{sec:org74f36f2}
+Over the past 10 years, I have been involved in several consultancies as a team
+leader or a technical expert in a specific subject:
+\begin{itemize}
+\item \emph{TOTAL (Oil and Gas Trading \& Shipping)}: tested and improved the STAGE
+simulator, a software to simulate ships trips between loading and unloading
+terminals taking into account real life constraints (weather, traffic,
+dry-dock, \ldots{}).
+
+\item \emph{major UK bookmaker}: auditing and improving the in-house forecasting models
+for weak leagues and helping optimising the cash-out algorithm.
+
+\item \emph{Atomic Weapons Establishment}: provided an algorithm to solve a dynamic
+Poisson regression problem.
+
+\item \emph{Thales}: created a software to model a gap in the coating of a submarine
+\end{itemize}
+\citep{heil2012quasi}.
+
+\begin{itemize}
+\item \emph{UEFA}: developed Aalgorithms to detect fixed games (joint work with sporting index).
+
+\item \emph{Nottingham Forest F.C}: specific statistical reports on a list of target players.
+
+\item \emph{BBC sports}: different applications of SAM (most likely score forecast, end
+of season league table simulations, likely impact of a signing, players
+importance \ldots{}).
+
+\item \emph{major tracking data provider}: compare the accuracy of different tracking
+data sources objectively (on going).
+
+\item \emph{major UK law firm}: estimate the likelihood of the client (a footballer who
+got injured in 2012) to make it to the top level in England (on going).
+\end{itemize}
+\section{Programming}
+\label{sec:orgb93acdc}
+\begin{itemize}
+\item \textbf{Compiled languages}: strong knowledge of C++:
+\begin{itemize}
+\item contributed to the oomph lib library \citep{heil2006oomph}: author of the
+Helmholtz module.
+\item good working knowledge of the Armadillo \citep{sanderson2016armadillo} and
+Eigen \citep{jacob2012eigen} libraries for linear algebra, NLopt
+\citep{johnsonnlopt} for nonlinear optimisation and openMP
+\citep{dagum1998openmp} for parallel computing.
+\end{itemize}
+
+\item \textbf{Interpreted languages}: 
+\begin{itemize}
+\item expert knowledge in \texttt{R}: author of several packages on \href{https://cran.r-project.org/}{CRAN}.
+\item strong experience interfacing C++ code from R (to improve code performance).
+\item ability to build comprehensive web apps using shiny and shiny dashboard.
+\item basic understanding of python (learning it at the moment).
+\item intermediate knowledge of Julia.
+\end{itemize}
+
+\item \textbf{Machine learning}: 
+\begin{itemize}
+\item solid understanding of machine learning algorithms for classification,
+regression and clustering.
+\item solid working experience with ML libraries such as h2o.ai
+\citep{candel2016deep} and keras \citep{chollet2015keras}(R interface with
+CPU and GPU backend).
+\item extensive experience with the \texttt{caret} R package \citep{kuhn2008caret} for
+model testing.
+\item ability to deploy models in production environment leveraging new
+technologies such as Ducker, version control (git) and conda manager.
+\end{itemize}
+
+\item \textbf{Database}:
+\begin{itemize}
+\item ability to build, maintain and store large amount of data using \href{https://www.mongodb.com/}{MongoDB} (no
+sql) either locally or on the cloud (using \href{https://www.mongodb.com/cloud/atlas}{mongo-Atlas}).
+\end{itemize}
+
+\item \textbf{Parallel computing} 
+\begin{itemize}
+\item good experience with multithreading programming (using
+\end{itemize}
+the foreach package \citep{analytics2014doparallel} in R or openMP
+\citep{dagum1998openmp} in C++) as well as GPU computing (using the RCUDA
+package \citep{baines2014rcuda}).
+\end{itemize}
+
+\label{sec:orga89f5a4}
+\bibliographystyle{apalike}
+\bibliography{expertise}
+\end{document}
